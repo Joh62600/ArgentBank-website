@@ -1,0 +1,22 @@
+.section-user {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+}
+.section-user .title-user {
+  color: black;
+  margin-bottom: 5px;
+}
+.section-user .modal {
+  width: 30%;
+  height: auto;
+  background-color: #FFFFFF;
+  padding: 10px;
+}
+.section-user form {
+  display: flex;
+  flex-direction: column;
+}

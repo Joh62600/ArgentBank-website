@@ -1,0 +1,80 @@
+header {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  position: relative;
+  z-index: 1;
+  
+}
+header .logo {
+  width: 200px;
+  max-width: 100%;
+}
+header .logo:hover {
+  cursor: pointer;
+}
+header nav {
+  font-weight: bold;
+}
+header nav .link {
+  margin-right: 2rem;
+  text-decoration: none;
+}
+header nav .link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+header nav .link:visited {
+  color: #00bc77;
+  text-decoration: none;
+}
+header nav .icon-header {
+  margin-right: 5px;
+}
+
+@media (max-width: 370px) {
+  nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  nav .link {
+    margin-bottom: 2px;
+  }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  
+  
+}
+
+.header h1 {
+  font-size: 2rem;
+  
+}
+
+.header nav ul {
+  display: flex;
+  list-style: none;
+}
+
+.header nav ul li {
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+
+.header nav ul li:last-child {
+  margin-right: 0;
+}
+
+.icon-header {
+  margin-right: 1rem;
+  color: #00bc77;
+  
+}

@@ -1,0 +1,38 @@
+.main-home {
+  display: flex;
+  flex-direction: column;
+}
+
+.features {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: row; 
+  justify-content: space-between; 
+  flex-wrap: wrap; 
+}
+
+/* Les écrans de 920px et moins */
+@media (max-width: 920px) {
+  .features {
+    flex-direction: column; 
+  }
+}
+
+.card-feature {
+  padding: 2.5rem;
+  flex: 1 1 300px; 
+}
+
+.card-feature .feature-icon {
+  width: 100px;
+  border: 10px solid #00bc77;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.card-feature h3 {
+  color: #222222;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
