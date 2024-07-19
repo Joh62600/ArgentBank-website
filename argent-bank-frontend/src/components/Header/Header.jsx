@@ -40,7 +40,7 @@ function Header() {
                      <FontAwesomeIcon icon={faUserCircle} className="icon-header" />
                      {!userProfile.userName ? <>{userProfile.firstName}</> : <>{userProfile.userName}</>}
                   </Link>
-                  <Link className="link">
+                  <Link to="/User"  className="link">
                      <FontAwesomeIcon icon={faCog} className="icon-header" />
                   </Link>
                   <Link to="/Login" onClick={userSignOut} className="link">

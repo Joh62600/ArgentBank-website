@@ -1,73 +1,81 @@
 .main-login {
-    height: 800px;
-    background-color: #12002b;
-    display: flex;
-    justify-content: center;
-   
-  }
-  .main-login .section-login {
-    box-sizing: border-box;
-    width: 300px;
-    height: 365px;
-    margin-top: 3rem;
-    background-color: #FFFFFF;
-    padding: 2rem;
-  }
-  .main-login .section-login .form-header {
-    height: 55px;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-  }
-  .main-login .section-login .form-header i {
-    margin-bottom: 10px;
-  }
-  .main-login .section-login .form {
-    display: flex;
-    flex-direction: column;
-  }
-  .main-login .section-login .check-login {
-    display: flex;
-    margin-top: 20px;
-  }
-  .main-login .section-login .check-login label {
-    margin-left: 5px;
-  }
-  .main-login .section-login .error-login {
-    color: red;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  .main-login .section-login .btn-login {
-    width: 252px;
-    height: 38px;
-  }
-  .switch-form {
-    cursor: pointer;
-    color: blue;
-    text-decoration: underline;
-    margin-top: 10px;
-  }
-  
-  .switch-form:hover {
-    color: darkblue;
-  }
-  .section-login {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Prend toute la largeur disponible */
-    max-width: 400px; /* Limite la largeur maximale */
-    margin: 0 20px; /* Ajoute des marges pour éviter que le conteneur ne colle aux bords de l'écran */
-    transition: height 0.3s ease; /* Ajoute une transition pour un effet fluide */
-  }
-  
-  .section-login.sign-in {
-    height: 370px; /* Hauteur pour le formulaire de connexion */
-  }
-  
-  .section-login.sign-up {
-    height: 500px; /* Hauteur par défaut pour le formulaire de création de compte */
-  }
-  
+  height: 800px;
+  background-color: #12002b;
+  display: flex;
+  justify-content: center;
+}
+
+.section-login {
+  box-sizing: border-box;
+  width: 300px;
+  margin-top: 3rem;
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: height 0.3s ease;
+}
+
+.section-login.sign-in {
+  height: 400px;
+}
+
+.section-login.sign-up {
+  height: 550px;
+}
+
+.form-header {
+  height: 55px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-header i {
+  margin-bottom: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.check-login {
+  display: flex;
+  margin-top: 20px;
+}
+
+.check-login label {
+  margin-left: 5px;
+}
+
+.error-login {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.btn-login {
+  width: 100%;
+  height: 38px;
+  background-color: #00bc77;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-login:hover {
+  background-color: #009c66;
+}
+
+.switch-form {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+.switch-form:hover {
+  color: darkblue;
+}

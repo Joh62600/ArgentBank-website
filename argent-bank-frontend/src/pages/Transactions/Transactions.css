@@ -1,0 +1,113 @@
+.main-transactions {
+  padding: 20px;
+}
+
+.transactions-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.transactions-header h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.transactions-header .balance {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00bc77;
+  margin-bottom: 5px;
+}
+
+.transactions-header .subtitle {
+  font-size: 18px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.transactions-list {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #00bc77;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e0f7fa;
+}
+
+.expanded-row {
+  background-color: #e0f7fa;
+}
+
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.edit-section div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-section label {
+  font-weight: bold;
+}
+
+.edit-section input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.edit-button, .save-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.edit-button {
+  background-color: #00bc77;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #009c66;
+}
+
+.save-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #d32f2f;
+}

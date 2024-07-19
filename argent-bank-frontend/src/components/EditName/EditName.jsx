@@ -1,129 +1,76 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserName } from "../../redux/reducer/profileSlice";
-import axios from "axios";
-
-import Field from "../../components/Field/Field.jsx";
-import Button from "../../components/Button/Button.jsx";
-
-import "./EditName.css";
+import { updateUserNameAPI } from "../../redux/reducer/profileSlice";
+import "./EditName.css"; // Import du fichier CSS
 
 function EditName() {
   const dispatch = useDispatch();
-  const userProfile = useSelector((state) => state.user); // récup données user
-  const userToken = useSelector((state) => state.auth.token); // récup token
+  const userProfile = useSelector((state) => state.user);
+  const [editMode, setEditMode] = useState(false);
+  const [newUserName, setNewUserName] = useState(userProfile.userName);
 
-  const [isOpen, setIsOpen] = useState(false); // form fermé par défaut
-  const [editedUserName, setEditedUserName] = useState(userProfile.userName); // définit état username
-
-  //* Fermeture formulaire d'édition + save
-  const saveChange = async (event) => {
-    event.preventDefault();
-    try {
-      //* Envoie requête API
-      const response = await axios.put(
-        "http://localhost:3001/api/v1/user/profile",
-        {
-          userName: editedUserName,
-        },
-        {
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        dispatch(updateUserName(editedUserName)); // màj username dans store
-        setIsOpen(false);
-      } else {
-        if (response.status === 401) {
-          const errorData = response.data;
-          console.error("Error 401 - editName : ", errorData.message);
-        }
-        if (response.status === 400) {
-          const errorData = response.data;
-          console.error("Error 400 - editName : ", errorData);
-        } else {
-          //* Gestion spécifique pour autre erreur
-          console.error("Error - editName : ", response.statusText);
-        }
-      }
-    } catch (error) {
-      //* Gestion des erreurs liées à la requête
-      console.error("Another Error - editName : ", error);
+  // UseEffect to update newUserName whenever editMode is set to true
+  useEffect(() => {
+    if (editMode) {
+      setNewUserName(userProfile.userName);
     }
+  }, [editMode, userProfile.userName]);
+
+  const handleEditClick = () => {
+    setEditMode(true);
   };
 
-  useEffect(() => {
-    setEditedUserName(userProfile.userName); // màj username pour userProfile
-    
-  }, [userProfile.userName]);
+  const handleSaveClick = () => {
+    dispatch(updateUserNameAPI(newUserName));
+    setEditMode(false);
+  };
+
+  const handleCancelClick = () => {
+    setNewUserName(userProfile.userName);
+    setEditMode(false);
+  };
 
   return (
-    <section className="section-user">
-      {!isOpen ? (
-        //* Mode édition désactivé
+    <div className="edit-name">
+      <h1>Welcome back {userProfile.userName}!</h1>
+      {editMode ? (
         <>
-          <h2 className="title-user">
-            Welcome back
-            <br />
-            {!userProfile.userName ? (
-              <>
-                {userProfile.firstName} {userProfile.lastName}
-              </>
-            ) : (
-              <>{userProfile.userName} </>
-            )}
-            !
-          </h2>
-          <Button
-            content="Edit Name"
-            onClick={() => {
-              setIsOpen(true);
-            }}
-          />
-        </>
-      ) : (
-        //* Mode édition activé
-        <>
-          <h2 className="title-user">Edit user info</h2>
-          <div className="modal">
-            <form onSubmit={saveChange}>
-              <Field
-                label="User Name :"
-                type="text"
-                content="userName"
-                onChange={(event) => setEditedUserName(event.target.value)}
-              />
-              <Field
-                label="First Name :"
-                type="text"
-                content="firstName"
-                placeholder={userProfile.firstName}
-              />
-              <Field
-                label="Last Name :"
-                type="text"
-                content="lastName"
-                placeholder={userProfile.lastName}
-              />
-            </form>
-            <Button content="Save" width="150px" height="40px" style={{ marginRight: "7px"}}  />
-            <Button
-              content="Cancel"
-              width="150px"
-              height="40px"
-              style={{ backgroundColor: "red" }}
-              onClick={() => {
-                setIsOpen(false);
-              }}
+          <div className="field-container">
+            <label htmlFor="firstName">First name:</label>
+            <input
+              type="text"
+              id="firstName"
+              value={userProfile.firstName}
+              disabled
             />
           </div>
+          <div className="field-container">
+            <label htmlFor="lastName">Last name:</label>
+            <input
+              type="text"
+              id="lastName"
+              value={userProfile.lastName}
+              disabled
+            />
+          </div>
+          <div className="field-container">
+            <label htmlFor="username">User name:</label>
+            <input
+              type="text"
+              id="username"
+              value={newUserName}
+              onChange={(e) => setNewUserName(e.target.value)}
+            />
+          </div>
+          <div className="button-group">
+            <button onClick={handleSaveClick} className="save-button">Save</button>
+            <button onClick={handleCancelClick} className="cancel-button">Cancel</button>
+          </div>
         </>
+      ) : (
+        <button onClick={handleEditClick} className="edit-button">Edit Name</button>
       )}
-    </section>
+    </div>
   );
 }
 

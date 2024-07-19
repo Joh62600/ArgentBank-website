@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
 import { setProfile } from '../../redux/reducer/profileSlice.js';
-
 import EditName from "../../components/EditName/EditName.jsx";
 import EventMoney from "../../components/EventMoney/EventMoney.jsx";
-
 import "./User.css";
+import { useNavigate } from "react-router-dom";
 
 function User() {
   const dispatch = useDispatch();
+  const accounts = useSelector((state) => state.user.accounts);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async (authToken) => {
@@ -28,7 +28,7 @@ function User() {
         );
         if (response.status === 200) {
           const responseData = response.data;
-          dispatch(setProfile(responseData)); // màj valeur + déclenche rendu
+          dispatch(setProfile(responseData));
         } else {
           console.error("Error response : ", response.statusText);
         }
@@ -37,22 +37,30 @@ function User() {
       }
     };
 
-    const authToken = localStorage.getItem("authToken"); // récup token
-    //* Vérif si token existe
+    const authToken = localStorage.getItem("authToken");
     if (authToken) {
       fetchProfileData(authToken);
     }
-  }, [dispatch]); // Ajoutez dispatch ici comme dépendance
+  }, [dispatch]);
+
+  const handleAccountClick = (account) => {
+    navigate("/transactions", { state: account });
+  };
 
   return (
     <main className="main-user">
       <EditName />
-
       <section className="section-card">
         <h2 className="hidden">Accounts</h2>
-        <EventMoney title="Argent Bank Checking (x8349)" content="$2,082.79" subtitle="Available Balance" />
-        <EventMoney title="Argent Bank Savings (x6712)" content="$10,928.42" subtitle="Available Balance" />
-        <EventMoney title="Argent Bank Credit Card (x8349)" content="$184.30" subtitle="Current Balance" />
+        {accounts.map((account) => (
+          <EventMoney
+            key={account.id}
+            title={account.title}
+            content={account.content}
+            subtitle={account.subtitle}
+            onClick={() => handleAccountClick(account)}
+          />
+        ))}
       </section>
     </main>
   );

@@ -20,6 +20,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [remember, setRemember] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [firstName, setFirstName] = useState(""); // eslint-disable-line no-unused-vars
+  const [lastName, setLastName] = useState(""); // eslint-disable-line no-unused-vars
 
   //* Envoi du formulaire
   const submit = async (event) => {
@@ -48,22 +51,44 @@ function Login() {
       }
     } catch {
       //* Gestion des erreurs imprévues
-      setErrorMessage("An error occurred."); // mettre à jour le message d'erreur
+      setErrorMessage("Wrong Email or Password."); // mettre à jour le message d'erreur
     }
+  };
+
+  const switchForm = () => {
+    setIsSignUp(!isSignUp);
   };
 
   return (
     <main className="main-login">
-      <section className="section-login">
+      <section className={`section-login ${isSignUp ? "sign-up" : "sign-in"}`}>
         <div className="form-header">
           <i className="fa fa-user-circle"></i>
-          <h2>Sign In</h2>
+          <h2>{isSignUp ? "Sign Up" : "Sign In"}</h2>
         </div>
         <form onSubmit={submit}>
           {errorMessage && <p className="error-login">{errorMessage}</p>}
 
+          {isSignUp && (
+            <>
+              <Field
+                label="First Name"
+                content="firstName"
+                type="text"
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+              <Field
+                label="Last Name"
+                content="lastName"
+                type="text"
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </>
+          )}
           <Field
-            label="Username"
+            label="Email"
             content="email"
             type="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -90,8 +115,11 @@ function Login() {
             <label htmlFor="remember">Remember me</label>
           </div>
 
-          <Button style={{ textDecoration: "underline" }} content="Sign In" className="btn-login" />
+          <Button style={{ textDecoration: "none" }} content={isSignUp ? "Sign Up" : "Sign In"} className="btn-login" />
         </form>
+        <p className="switch-form" onClick={switchForm}>
+          {isSignUp ? "Already have an account? Sign In" : "Don't have an account? Sign Up"}
+        </p>
       </section>
     </main>
   );
