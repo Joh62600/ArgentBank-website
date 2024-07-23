@@ -1,9 +1,10 @@
 .account {
   width: 80%;
+  max-width: 1200px;
   height: auto;
   background-color: #FFFFFF;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   box-sizing: border-box;
   border: 1px solid black;
@@ -11,16 +12,21 @@
   padding: 1rem;
   color: white;
   background-color: grey;
+  transition: all 0.3s ease;
 }
+
 .account .content-account {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: left;
+  flex-grow: 1;
 }
+
 .account .content-account .title-account {
   font-size: 1rem;
 }
+
 .account .content-account .money {
   font-size: 2.5rem;
   font-weight: bold;
@@ -29,45 +35,52 @@
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
-    display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 1.5rem;
   }
 }
-.account {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  margin-bottom: 1rem;
+
+@media (max-width: 720px) {
+  .account {
+    width: 90%; /* Réduction de la largeur pour les tablettes */
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  .account .content-account .title-account {
+    font-size: 0.9rem;
+  }
+  .account .content-account .money {
+    font-size: 2rem;
+  }
 }
 
-.content-account {
-  flex-grow: 1;
+@media (max-width: 480px) {
+  .account {
+    width: 95%; /* Réduction de la largeur pour les mobiles */
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+
+  .account .content-account .title-account {
+    font-size: 0.8rem;
+  }
+  .account .content-account .money {
+    font-size: 1.8rem;
+  }
 }
 
 .cta {
   display: flex;
   align-items: center;
-}
-
-.transaction-button {
-  background-color: #00bc77;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.transaction-button svg {
-  margin-left: 0.5rem;
+  justify-content: center; /* Centrer le chevron verticalement */
+  margin-left: auto;
 }
 
 .icon-arrow {
-  margin-left: 0.5rem;
-  font-size: 60px;
+  font-size: 2rem;
 }

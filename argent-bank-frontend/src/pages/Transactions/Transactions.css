@@ -111,3 +111,73 @@ tr:hover {
 .save-button:hover {
   background-color: #d32f2f;
 }
+
+/* Responsive styles */
+@media (max-width: 720px) {
+  .transactions-header h2 {
+    font-size: 24px;
+  }
+
+  .transactions-header .balance {
+    font-size: 20px;
+  }
+
+  .transactions-header .subtitle {
+    font-size: 16px;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .edit-section input {
+    width: 100%;
+  }
+
+  .edit-section div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-section label {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .transactions-header h2 {
+    font-size: 20px;
+  }
+
+  .transactions-header .balance {
+    font-size: 18px;
+  }
+
+  .transactions-header .subtitle {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .edit-section input {
+    width: 100%;
+  }
+
+  .edit-section div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-section label {
+    margin-bottom: 5px;
+  }
+
+  .edit-button, .save-button {
+    padding: 8px;
+    width: 100%;
+  }
+}

@@ -42,6 +42,7 @@ function EditName() {
               id="firstName"
               value={userProfile.firstName}
               disabled
+              autoComplete="given-name"
             />
           </div>
           <div className="field-container">
@@ -51,6 +52,7 @@ function EditName() {
               id="lastName"
               value={userProfile.lastName}
               disabled
+              autoComplete="family-name"
             />
           </div>
           <div className="field-container">
@@ -60,6 +62,7 @@ function EditName() {
               id="username"
               value={newUserName}
               onChange={(e) => setNewUserName(e.target.value)}
+              autoComplete="username"
             />
           </div>
           <div className="button-group">

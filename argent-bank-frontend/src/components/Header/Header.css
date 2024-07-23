@@ -4,77 +4,97 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  padding: 10px 20px;
   position: relative;
   z-index: 1;
-  
 }
+
 header .logo {
-  width: 200px;
+  width: 150px;
   max-width: 100%;
 }
-header .logo:hover {
-  cursor: pointer;
-}
+
 header nav {
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
+
 header nav .link {
-  margin-right: 2rem;
+  margin-right: 1rem;
   text-decoration: none;
+  color: #00bc77; /* Couleur verte */
 }
+
 header nav .link:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-header nav .link:visited {
-  color: #00bc77;
-  text-decoration: none;
-}
+
 header nav .icon-header {
   margin-right: 5px;
+  color: #00bc77;
 }
 
-@media (max-width: 370px) {
-  nav {
-    display: flex;
+/* Styles pour tablettes */
+@media (max-width: 768px) {
+  header {
     flex-direction: column;
+    align-items: center;
+  }
+
+  header .logo {
+    margin-bottom: 10px;
+  }
+
+  header nav {
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
   }
-  nav .link {
-    margin-bottom: 2px;
+
+  header nav .link {
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
   }
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  
-  
-}
 
-.header h1 {
-  font-size: 2rem;
-  
-}
+/* Styles pour mobiles */
+@media (max-width: 480px) {
+  header {
+    padding: 10px;
+  }
 
-.header nav ul {
-  display: flex;
-  list-style: none;
-}
+  header .logo {
+    width: 120px;
+    margin-bottom: 10px;
+  }
 
-.header nav ul li {
-  margin-right: 1rem;
-  font-size: 1.2rem;
-}
+  header nav {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.header nav ul li:last-child {
-  margin-right: 0;
-}
+  header nav .link {
+    margin-right: 0;
+    margin-bottom: 15px; /* Augmentation de l'espacement entre les liens */
+    display: flex;
+    align-items: center;
+  }
 
-.icon-header {
-  margin-right: 1rem;
-  color: #00bc77;
-  
+  header nav .link .icon-header {
+    margin-right: 5px;
+  }
+
+  /* Positionner l'icône d'engrenage à droite de "Captain" */
+  header nav .link.user-profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px; /* Augmentation de l'espacement */
+  }
+
+  header nav .link.user-profile .icon-header {
+    margin-left: 10px; /* Augmentation de l'espacement entre le texte et l'icône */
+    margin-right: 0;
+  }
 }

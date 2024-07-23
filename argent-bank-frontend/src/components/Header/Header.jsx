@@ -3,26 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { setSignIn, setSignOut } from "../../redux/reducer/authSlice";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faSignOutAlt, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Logo from "../../img/argentBankLogo.webp";
 import "./Header.css";
 
 function Header() {
-   //* Extrait valeur depuis le store
-   const user = useSelector((state) => state.auth.isAuthenticated);
+   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+   const userProfile = useSelector((state) => state.user);
+   const dispatch = useDispatch();
 
-   const dispatch = useDispatch(); // màj valeur
-   const userProfile = useSelector((state) => state.user); // extrait user profil
-
-   //* Deco user
    const userSignOut = () => {
       dispatch(setSignOut());
    };
 
    useEffect(() => {
       const token = localStorage.getItem("authToken");
-      if (token) {
-         dispatch(setSignIn({ token })); // co user
+      const userName = localStorage.getItem("userName");
+
+      if (token && userName) {
+         dispatch(setSignIn({ token, userName }));
       }
    }, [dispatch]);
 
@@ -34,22 +33,19 @@ function Header() {
          </Link>
 
          <nav>
-            {user ? (
+            {isAuthenticated ? (
                <>
-                  <Link to="/User" className="link">
+                  <Link to="/user" className="link user-profile">
                      <FontAwesomeIcon icon={faUserCircle} className="icon-header" />
-                     {!userProfile.userName ? <>{userProfile.firstName}</> : <>{userProfile.userName}</>}
+                     {userProfile.userName ? userProfile.userName : userProfile.firstName}
                   </Link>
-                  <Link to="/User"  className="link">
-                     <FontAwesomeIcon icon={faCog} className="icon-header" />
-                  </Link>
-                  <Link to="/Login" onClick={userSignOut} className="link">
+                  <Link to="/login" onClick={userSignOut} className="link">
                      <FontAwesomeIcon icon={faSignOutAlt} className="icon-header" />
                      Sign Out
                   </Link>
                </>
             ) : (
-               <Link to="/Login" className="link">
+               <Link to="/login" className="link">
                   <FontAwesomeIcon icon={faUserCircle} className="icon-header" />
                   Sign In
                </Link>

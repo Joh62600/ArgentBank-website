@@ -1,9 +1,9 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -21,17 +21,17 @@ paths:
           description: Login Payload
           required: true
           schema:
-            $ref: '#/definitions/Login'
+            $ref: "#/definitions/Login"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
+            $ref: "#/definitions/LoginResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/signup:
     post:
@@ -45,17 +45,17 @@ paths:
           description: Signup Payload
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: "#/definitions/User"
       produces:
         - application/json
       responses:
-        '200':
+        "200":
           description: Signup Successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
   /user/profile:
     post:
@@ -65,16 +65,16 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      produces:
-        - application/json
+      #produces:
+      # - application/json
       responses:
-        '200':
-          description: User profile retrieved successfully
+        "200":
+          description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
     put:
       security:
@@ -89,265 +89,409 @@ paths:
           description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: "#/definitions/UserProfile"
       produces:
         - application/json
       responses:
-        '200':
-          description: User profile updated successfully
+        "200":
+          description: User profile retrieved successully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
+            $ref: "#/definitions/ApiResponse"
+        "400":
           description: Invalid Fields
-        '500':
+        "500":
           description: Internal Server Error
-
-/accounts/{accountID}/transactions/current:
-  get:
-    security:
-      - Bearer: []
-    tags:
-      - Transactions Module
-    summary: Fetch current month transactions
-    description: Fetch transactions for the current month.
-    parameters:
-      - in: path
-        name: accountID
-        description: Unique account ID
-        required: true
-        type: string
-      - in: query
-        name: sortByCategory
-        description: Sort transactions by category (optional)
-        required: false
-        type: boolean
-      - in: query
-        name: category
-        description: Category to filter transactions (optional)
-        required: false
-        type: string
-      - in: query
-        name: startDate
-        description: Start date for filtering transactions (optional)
-        required: false
-        type: string
-      - in: query
-        name: endDate
-        description: End date for filtering transactions (optional)
-        required: false
-        type: string
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Account's transactions fetched successfully for the current month
-        schema:
-          type: object
-          oneOf:
-            - $ref: '#/definitions/UserAccountList'
-            - $ref: '#/definitions/SortByCategoryResponse'
-      '400':
-        description: Bad request - Invalid fields
-        examples:
-          application/json:
-            error:
-              value:
-                status: 400
-                message: Invalid fields
-      '401':
-        description: Unauthorized - Authentication failed
-        examples:
-          application/json:
-            error:
-              value:
-                status: 401
-                message: Token is missing from header
-      '404':
-        description: No transaction found for the specified month and account
-        examples:
-          application/json:
-            error:
-              value:
-                status: 404
-                message: No transaction found
-      '500':
-        description: Internal Server Error - Something went wrong
-        examples:
-          application/json:
-            error:
-              value:
-                status: 500
-                message: Internal Server Error
-
-    examples:
-      application/json:
-        value:
-          sortByCategory: true
-          category: category-name
-
-    x-code-samples:
-      - lang: shell
-        label: cURL
-        source: |
-          curl -X GET "http://localhost:3001/api/v1/accounts/{accountID}/transactions/current?sortByCategory=true&category=category-name" -H "Authorization: Bearer <token>"
-
-          # Request URL
-          # http://localhost:3001/api/v1/accounts/{accountID}/transactions/current?sortByCategory=true&category=category-name
-
-/accounts/{accountID}/transactions/{transactionID}:
-  get:
-    security:
-      - Bearer: []
-    tags:
-      - Transactions Module
-    summary: Fetch details of a specific transaction
-    description: Fetch details from a specific transaction.
-    parameters:
-      - in: path
-        name: accountID
-        description: Unique account ID
-        required: true
-        type: string
-      - in: path
-        name: transactionID
-        description: Unique transaction ID
-        required: true
-        type: string
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Transaction details fetched successfully
-        schema:
-          $ref: '#/definitions/Transaction'
-      '400':
-        description: Bad request - Invalid fields
-      '401':
-        description: Unauthorized - Authentication failed
-      '404':
-        description: Transaction or Account not found
-      '500':
-        description: Internal Server Error - Something went wrong
-
-  put:
-    security:
-      - Bearer: []
-    tags:
-      - Transactions Module
-    summary: Update details of a specific transaction
-    description: Update details of a specific transaction.
-    parameters:
-      - in: path
-        name: accountID
-        description: Unique account ID
-        required: true
-        type: string
-      - in: path
-        name: transactionID
-        description: Unique transaction ID
-        required: true
-        type: string
-      - in: body
-        name: transactionUpdate
-        description: New details for the transaction
-        required: true
-        schema:
-          $ref: '#/definitions/TransactionUpdate'
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Transaction details updated successfully
-        schema:
-          $ref: '#/definitions/ApiResponse'
-      '400':
-        description: Bad request - Invalid fields
-      '401':
-        description: Unauthorized - Authentication failed
-      '404':
-        description: Transaction or Account not found
-      '500':
-        description: Internal Server Error - Something went wrong
-
-  post:
-    security:
-      - Bearer: []
-    tags:
-      - Transactions Module
-    summary: Post a new specific transaction
-    description: Post a new specific transaction
-    parameters:
-      - in: path
-        name: accountID
-        description: Unique account ID
-        required: true
-        type: string
-      - in: body
-        name: transactionPost
-        description: Post the new transaction
-        required: true
-        schema:
-          $ref: '#/definitions/TransactionPost'
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: New transaction created successfully
-        schema:
-          $ref: '#/definitions/ApiResponse'
-      '400':
-        description: Bad request - Invalid fields
-      '401':
-        description: Unauthorized - Authentication failed
-      '404':
-        description: Transaction or Account not found
-      '500':
-        description: Internal Server Error - Something went wrong
-
-  delete:
-    security:
-      - Bearer: []
-    tags:
-      - Transactions Module
-    summary: Delete a specific transaction
-    description: Delete a specific transaction.
-    parameters:
-      - in: path
-        name: accountID
-        description: Unique account ID
-        required: true
-        type: string
-      - in: path
-        name: transactionID
-        description: Unique transaction ID
-        required: true
-        type: string
-    produces:
-      - application/json
-    responses:
-      '200':
-        description: Transaction deleted successfully
-        schema:
-          $ref: '#/definitions/ApiResponse'
-      '400':
-        description: Bad request - Invalid fields
-      '401':
-        description: Unauthorized - Authentication failed
-      '404':
-        description: Transaction or Account not found
-      '500':
-        description: Internal Server Error - Something went wrong
-
+  #------ NEW ENDPOINTS -------#
+  /user/accounts/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Account Module
+      summary: Get User Accounts
+      description: API to retrieve all accounts of a specific user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          description: ID of the user to retrieve accounts for
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Accounts retrieved successfully
+          schema:
+            $ref: "#/definitions/AccountList"
+        "500":
+          description: Internal Server Error
+  /user/{accountId}/transactions:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Get Account Transactions
+      description: API to retrieve all transactions of a specific account
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          description: ID of the account to retrieve transactions for
+          type: string
+        - in: query
+          name: start_date
+          description: Start date of the month to filter transactions
+          type: string
+          format: YYYY-MM-DD
+          # Definir dans le backend la logic start_date #
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transactions retrieved successfully
+          schema:
+            $ref: "#/definitions/TransactionList"
+        "404":
+          description: Account not found
+        "500":
+          description: Internal Server Error
+  /user/transactions/{transactionId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Get Transaction Details
+      description: API to retrieve details of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to retrieve details for
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Transaction details retrieved successfully
+          schema:
+            $ref: "#/definitions/TransactionDetails"
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/transactions/{transactionId}/note:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Add Note to Transaction
+      description: API to add a note to a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to add the note to
+          type: string
+        - in: body
+          name: body
+          description: Note payload
+          required: true
+          schema:
+            $ref: "#/definitions/NotePayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Note added successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update Note of Transaction
+      description: API to update the note of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to update the note for
+          type: string
+        - in: body
+          name: body
+          description: Updated note payload
+          required: true
+          schema:
+            $ref: "#/definitions/NotePayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Note updated successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete Note of Transaction
+      description: API to delete the note of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to delete the note from
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Note deleted successfully
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/transactions/{transactionId}/type:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Add TransactionType to Transaction
+      description: API to add a transactionType to a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to add the transactionType
+          type: string
+        - in: body
+          name: body
+          description: TransactionType payload
+          required: true
+          schema:
+            $ref: "#/definitions/TypePayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: TransactionType added successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update TransactionType of Transaction
+      description: API to update the transactionType of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to update the transactionType for
+          type: string
+        - in: body
+          name: body
+          description: Updated transactionType payload
+          required: true
+          schema:
+            $ref: "#/definitions/TypePayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: TransactionType updated successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete transactionType of Transaction
+      description: API to delete the transactionType of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to delete the transactionType from
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: TransactionType deleted successfully
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+  /user/transactions/{transactionId}/category:
+    post:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Add Category to Transaction
+      description: API to add a category to a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to add the category
+          type: string
+        - in: body
+          name: body
+          description: Category payload
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryPayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Category added successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Update Category of Transaction
+      description: API to update the category of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to update the category for
+          type: string
+        - in: body
+          name: body
+          description: Updated category payload
+          required: true
+          schema:
+            $ref: "#/definitions/CategoryPayload"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Category updated successfully
+        "400":
+          description: Invalid request payload
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+    delete:
+      security:
+        - Bearer: []
+      tags:
+        - Transaction Module
+      summary: Delete category of Transaction
+      description: API to delete the category of a specific transaction
+      parameters:
+        # - in: path
+        #   name: accountId
+        #   required: true
+        #   description: ID of the account containing the transaction
+        #   type: string
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to delete the category from
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Category deleted successfully
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+#------ NEW ENDPOINTS -------#
 securityDefinitions:
   Bearer:
     type: apiKey
     name: Authorization
     in: header
-
 definitions:
   User:
-    type: object
     properties:
+      # id:
+      #   type: string
+      #   description: userId
       email:
         type: string
         description: user email
@@ -363,9 +507,7 @@ definitions:
       userName:
         type: string
         description: user public name
-
   Login:
-    type: object
     properties:
       email:
         type: string
@@ -373,7 +515,6 @@ definitions:
       password:
         type: string
         description: user password
-
   ApiResponse:
     type: object
     properties:
@@ -388,95 +529,81 @@ definitions:
             type: string
           email:
             type: string
-
   LoginResponse:
     type: object
     properties:
       token:
         type: string
-
   UserProfile:
     type: object
     properties:
       userName:
         type: string
-
-  UserAccountList:
+  #------- AJOUT DEFINITIONS -------#
+  AccountList:
+    type: array
+    items:
+      $ref: "#/definitions/Account"
+  Account:
     type: object
     properties:
-      accountID:
+      id:
         type: string
-        description: Account ID
-      transactions:
-        type: array
-        items:
-          $ref: '#/definitions/Transaction'
-
+        description: accountId
+  TransactionList:
+    type: array
+    items:
+      $ref: "#/definitions/Transaction"
   Transaction:
     type: object
     properties:
-      transactionID:
+      id:
         type: string
-        description: Transaction ID
+        description: transactionId
       date:
         type: string
-        description: Date du mois en cours
+        description: date of transaction
       description:
         type: string
-        description: Description de la transaction
+        description: description of transaction
       amount:
-        type: number
-        description: Montant de la transaction
+        type: string
+        description: amount of transaction
       balance:
-        type: number
-        description: Solde après la transaction
+        type: string
+        description: balance of transaction
+      details:
+        type: object
+        description: details of transaction
+        items:
+          $ref: "#/definitions/TransactionDetails"
+  TransactionDetails:
+    type: object
+    properties:
+      note:
+        type: string
+        description: transaction note
+      transactiontype:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+  NotePayload:
+    type: object
+    properties:
+      note:
+        type: string
+        description: The note to be added or updated
+  TypePayload:
+    type: object
+    properties:
       transactionType:
         type: string
-        description: Type de transaction effectuer
-      category:
-        type: string
-        description: Catégorie de la transaction (menu déroulant pour le choix de l'utilisateur)
-      note:
-        type: string
-        description: Note de la transaction
-
-  TransactionUpdate:
+        description: The transaction type to be added or updated
+  CategoryPayload:
     type: object
     properties:
       category:
         type: string
-        description: Transaction category update
-      note:
-        type: string
-        description: Transaction note update
-
-  TransactionPost:
-    type: object
-    properties:
-      category:
-        type: string
-        description: Transaction category post
-      note:
-        type: string
-        description: Transaction note post
-
-  TransactionDelete:
-    type: object
-    properties:
-      category:
-        type: string
-        description: Transaction category delete
-      note:
-        type: string
-        description: Transaction note delete
-
-  SortByCategoryResponse:
-    type: object
-    properties:
-      sortedByTransactions:
-        type: array
-        items:
-          $ref: '#/definitions/Transaction'
-      category:
-        type: string
-        description: Category used for sorting
+        description: The category to be added or updated

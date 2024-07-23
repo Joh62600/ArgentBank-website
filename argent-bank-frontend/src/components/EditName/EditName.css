@@ -9,6 +9,7 @@
   max-width: 400px;
   margin: 0 auto;
   margin-bottom: 20px;
+  transition: all 0.3s ease;
 }
 
 .edit-name h1 {
@@ -66,7 +67,6 @@
   width: 150px;
   text-align: center;
   transition: background-color 0.3s ease;
-  
 }
 
 .edit-button:hover,
@@ -82,3 +82,38 @@
   background-color: #d32f2f;
 }
 
+@media (max-width: 720px) {
+  .edit-name {
+    padding: 15px;
+    max-width: 90%;
+  }
+
+  .edit-name h1 {
+    font-size: 1.2rem;
+  }
+
+  .edit-button,
+  .save-button,
+  .cancel-button {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-name {
+    padding: 10px;
+    max-width: 95%;
+  }
+
+  .edit-name h1 {
+    font-size: 1rem;
+  }
+
+  .edit-button,
+  .save-button,
+  .cancel-button {
+    width: 100%;
+    padding: 8px;
+  }
+}

@@ -15,18 +15,16 @@ const authSlice = createSlice({
    name: "auth",
    initialState,
    reducers: {
-      // màj état pour connexion réussie
       setSignIn(state, action) {
-         state.token = action.payload.token; // màj token
-         state.userName = action.payload.userName; // màj userName
+         state.token = action.payload.token;
+         state.userName = action.payload.userName;
          state.isAuthenticated = true;
          localStorage.setItem("authToken", state.token);
          localStorage.setItem("userName", state.userName);
       },
-      // màj état pour déconnexion
       setSignOut(state) {
-         state.token = null; // Réinit token
-         state.userName = ""; // Réinit userName
+         state.token = null;
+         state.userName = "";
          state.isAuthenticated = false;
          localStorage.removeItem("authToken");
          localStorage.removeItem("userName");
